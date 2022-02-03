@@ -1,0 +1,33 @@
+{% extends 'blog/headerfooter.html' %}
+{% load static %}
+{% block title %}AddBlog{% endblock title %}
+{% block dashboard %}active{% endblock dashboard %}
+{% block container %}
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <h1>Here You Add Your Blog</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        {% if messages %}
+          {% for message in messages %}
+            <p {% if message.tags %}class="alert alert-{{message.tags}}"{% endif %}>{{message}}</p>
+          {% endfor %}
+        {% endif %}
+        <form action="" method="post">{% csrf_token %}
+          {% for fm in form %}
+          <div class="form-group">
+            {{fm.label_tag}}
+            {{fm}}
+            <small class="text-danger my-3 font-weight-bold">{{fm.errors|striptags}}</small>
+          </div>
+          {% endfor %}
+          <input type="submit" class="btn btn-primary my-3" value="Submit">       
+          <a href="{% url 'dashboard' %}" class="btn btn-warning my-3">Back to Dashboard</a>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock container %}

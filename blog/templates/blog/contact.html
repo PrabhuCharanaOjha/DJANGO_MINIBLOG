@@ -1,0 +1,18 @@
+{% extends 'blog/headerfooter.html' %}
+{% load static %}
+{% block title %}Contact{% endblock title %}
+{% block contact %}active{% endblock contact %}
+{% block container %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <form action="" method="post">{% csrf_token %}
+        <div class="form-group">
+          {{form.as_p}}
+        </div>
+        <input type="submit" value="Submit" class="btn btn-success">
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock container %}

@@ -1,0 +1,65 @@
+{% extends 'blog/headerfooter.html' %}
+{% load static %}
+{% block title %}Dashboard{% endblock title %}
+{% block dashboard %}active{% endblock dashboard %}
+{% block container %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h1 class="my-5">THIS IS DASHBOARD PAGE</h1>
+      {% if messages %}
+        {% for message in messages %}
+          <p {% if message.tags %} class="alert alert-{{message.tags}}" {% endif %}>{{message}}</p>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <h1 class="font-weight-bold text-center">Profile</h1>
+      <div class="font-weight-bold text-center">
+        {% for dat in data %}
+          {{dat}}
+        {% endfor %}
+      </div>
+      <div class="text-warning text-center">
+        {% for grp in grp %}
+          {{grp}}
+        {% endfor %}
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="row">
+        <a href="{% url 'addblog' %}" class="btn btn-success">Add Blog</a>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <table class="table text-center text-light my-4">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">TITILE</th>
+                <th scope="col">DESCRIPTION</th>
+                <th scope="col">ACTION</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for blog in blog %}
+              <tr>
+                <th scope="row">{{blog.id}}</th>
+                <td>{{blog.title}}</td>
+                <td>{{blog.des}}</td>
+                <td>
+                  <a href="{% url 'updateblog' blog.id %}" class="btn btn-warning">Edit</a>
+                  <a href="{% url 'deleteblog' blog.id %}" class="btn btn-danger">Delete</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock container %}

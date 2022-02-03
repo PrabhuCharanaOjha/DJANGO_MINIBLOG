@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- add bootstrap link -->
+  <link rel="stylesheet" href="{% static 'blog/css/bootstrap.css' %}">
+  <!-- add custome style sheet link -->
+  <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+  <title>{% block title %}Home{% endblock title %}</title>
+</head>
+<body>
+
+<!-- nav bar start -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Minibog</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item {% block home %}{% endblock home %}">
+        <a class="nav-link" href="{% url 'home' %}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% block about %}{% endblock about %}" href="{% url 'about' %}">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% block contact %}{% endblock contact %}" href="{% url 'contact' %}">Contact</a>
+      </li>
+      {% if not request.user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link {% block signup %}{% endblock signup %}" href="{% url 'signup' %}">SignUp</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% block login %}{% endblock login %}" href="{% url 'login' %}">LogIn</a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link {% block dashboard %}{% endblock dashboard %}" href="{% url 'dashboard' %}">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% block logout %}{% endblock logout %}" href="{% url 'logout' %}">LogOut</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+<!-- nav bar close -->
+
+{% block container %}
+{% endblock container %}
+
+<!-- Script Link -->
+<script src="{% static 'blog/js/jquery.js' %}"></script>
+<script src="{% static 'blog/js/popper.js' %}"></script>
+<script src="{% static 'blog/js/bootstrap.js' %}"></script>
+</body>
+</html>
